@@ -1,8 +1,6 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './App'
-import router from './router'
+import TovContainer from './TovContainer'
+import router from './router';
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -25,7 +23,7 @@ class tovarPush {
         this.img=img;
     }
 };
-
+Vue.component('tov-container', TovContainer);
 var form = new Vue({
 	el: '#app',
 	data:{
@@ -35,19 +33,14 @@ var form = new Vue({
         ifind: 0,
         L: 0,
 		costSum: 0,
-		onShop: [],
-        pass: '',
-        admin: false
+		onShop: []
 	},
     methods:{
-        share: function () {
-            /*var dt = JSON.stringify({"tovars": this.tovar});
-            var request = axios.post('http://localhost:3000/tovars', {dt}).then(function (response) {
-                console.log(response);
-            })
-                .catch(function (error) {
-                    console.log(error);
-                });*/
+        buyOfCart: function () {
+          alert('You buy for total summ: '+ this.costSum +'$');
+          this.tovar.forEach(function (tov, i) {
+            tov.onCart = 0;
+          });
         },
         filter: function (cont) {
             var container = document.getElementsByClassName('tCont');
@@ -62,12 +55,11 @@ var form = new Vue({
         }
     },
 	updated: function(){
-        var container = document.getElementsByClassName('tCont');
+        /*var container = document.getElementsByClassName('tCont');
         this.tovar.forEach(function (tov, i) {
             if(!tov.name.toLowerCase().indexOf(this.search.toLowerCase()) + 1) console.log("block")
             else console.log('none');
-        });
-
+        });*/
         //===========Общая цена===================================
 		this.costSum = this.tovar.reduce((a, b) => {
 				return Number(a) + Number(b.cost) * Number(b.onCart);
@@ -77,22 +69,13 @@ var form = new Vue({
     },
     created : function(){
         this.$http
-            .get("http://localhost:3000/tovars")
+            .get("https://api.myjson.com/bins/lwml6")
             .then(function(response) {
-                form.tovar = response.data;
-            });
-        this.$http
-            .get("http://localhost:3000/languages")
-            .then(function(response) {
-                form.lang = response.data;
+                form.tovar = response.data.tovars;
+                form.lang = response.data.languages;
             });
 	}
 });
-
-
-new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-})
+module.exports = {
+  mode: 'production'
+}

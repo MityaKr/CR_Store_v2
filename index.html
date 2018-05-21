@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>CR_Shop</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
   </head>
   <body>
     <div id="app">
@@ -44,37 +45,25 @@
 					<b-dropdown-item @click="L=2">RO</b-dropdown-item>
 				</b-nav-item-dropdown>
 
-				<b-nav-item-dropdown right>
-					<template slot="button-content">
-						<em>User</em>
-					</template>
-					<b-dropdown-item v-b-modal.modal1>Admin</b-dropdown-item>
-					<b-dropdown-item @click="admin=false">User</b-dropdown-item>
-				</b-nav-item-dropdown>
 			</b-navbar-nav>
 
 		</b-collapse>
 	</b-navbar>
-<!--===================Show Pass Modal==================-->
-		<b-modal v-if="!admin" id="modal1" title="Log-In" hide-footer>
-			<input style="width: 50%;margin-left: 25%" type="password" :style="admin?'border-color:grey':'border-color:red'" v-model="pass"></input>
-		</b-modal>
-
 
 <div id="tovar">
-	<app :style="tov.onCart?'border:solid':'border-width:0px'"
+	<tov-container :style="tov.onCart?'border:solid':'border-width:0px'"
 				   v-for="tov, index in tovar"
 				   v-if="true"
 				   :tovar="tov"
 					class="tCont">
-	</app>
+	</tov-container>
 
 </div>
     <div>
         <!-- Modal Component -->
-        <b-modal size="lg" id="modal-center" centered title="Shopping Cart" :ok-title="lang[L].buy" ok-only ok-disabled="true">
+        <b-modal size="lg" id="modal-center" centered title="Shopping Cart" :ok-title="lang[L].buy" @ok="buyOfCart" ok-only :ok-disabled="!costSum">
             <div id="tovar">
-                <app v-for="tov, index in tovar" v-if="tov.onCart" :tovar="tov" cart="true"></app>
+                <tov-container v-for="tov, index in tovar" v-if="tov.onCart" :tovar="tov" cart="true"></tov-container>
             </div>
         </b-modal>
     </div>
@@ -84,7 +73,115 @@
 
 </div>
 
-	<script type="text/javascript" src="build/build.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.2/axios.js"></script>
   </body>
 </html>
+
+<style>
+  body{
+    background-color: #bfbdbd;
+    margin-top: 64px;
+  }
+  .container{
+    border-width: 5px;
+    border: solid black;
+  }
+  .card{
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  }
+  #card-deck{
+    margin-left: 0px;
+  }
+  .card-text{
+    display: flex;
+    justify-content: center;
+  }
+  #tovar{
+    margin: 10px;
+    display: flex;
+    justify-content:space-around;
+    flex-wrap: wrap;
+    align-content: space-around;
+  }
+  #filter{
+    display: flex;
+  }
+  .btn{
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  #menu{
+    border-left:black;
+    height: 50px;
+    margin: 0px;
+    background: lightgreen;
+    width: 100%;
+    display: flex;
+  }
+  .tovContainer{
+    width: 200px;
+    margin: 20px;
+    display: block;
+    opacity: 1;
+    -webkit-transform: scale(1,1);
+    -webkit-transition-timing-function: ease-out;
+    -webkit-transition-duration: 200ms;
+    -moz-transform: scale(1,1);
+    -moz-transition-timing-function: ease-out;
+    -moz-transition-duration: 550ms;
+  }
+  .tovContainer:hover{
+    -webkit-transform: scale(1.05,1.05);
+    -webkit-transition-timing-function: ease-out;
+    -webkit-transition-duration: 550ms;
+    -moz-transform: scale(1.05,1.05);
+    -moz-transition-timing-function: ease-out;
+    -moz-transition-duration: 200ms;
+  }
+  .btnNval{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  img{
+    width: auto;
+    height: 100px;
+    background: no-repeat;
+    background-size: auto;
+  }
+  #title{
+    margin-left: 4px;
+    font-size: 20px;
+    font-weight:bold;
+  }
+  #titleDiv{
+    background-color: #C0C0C0;
+    display: flex;
+    justify-content: space-between;
+  }
+  #dopDiv{
+    padding: 1px;
+    font-size: 18px;
+    font-weight:bold;
+    background-color: #A9A9A9;
+    display: flex;
+    justify-content: space-between;
+  }
+  .btn-success, .btn-danger{
+    height: 40px;
+    margin-top: 0px;
+    margin-right: 2px;
+  }
+  #onSelect{
+    background-color: #81C784;
+    display: flex;
+    justify-content: space-between;
+  }
+  #cart_btn{
+    margin-right: 20px;
+  }
+  .mr-sm-2{
+    border-radius: 5px;
+  }
+
+</style>
