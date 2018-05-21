@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>CR_Shop</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="app">
+    <b-navbar toggleable="md" type="dark" variant="dark" fixed="top">
+
+		<b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+
+		<b-navbar-brand href="#">CR Store</b-navbar-brand>
+
+		<b-collapse is-nav id="nav_collapse">
+
+			<b-navbar-nav>
+				<button @click="" id="cart_btn" v-b-modal.modal-center class="btn btn-success" style="margin-top: 5px;">
+					<i class="material-icons">shopping_cart</i>
+				</button>
+				<b-navbar-brand>{{lang[L].total}}: {{costSum}}$</b-navbar-brand>
+			</b-navbar-nav>
+
+			<b-dropdown :text="lang[L].category" style="margin-left:10px">
+				<b-dropdown-item v-for="c, i in lang[0].cat" @click="filter(c)">{{ lang[L].cat[i] }}</b-dropdown-item>
+			</b-dropdown>
+			<b-dropdown :text="lang[L].firma" style="margin-left:10px">
+				<b-dropdown-item v-for="fm, i in lang[0].firm" @click="filter(fm)">{{ fm }}</b-dropdown-item>
+			</b-dropdown>
+
+			<b-button size="m" class="" @click="showAll">{{lang[L].all}}</b-button>
+			<!-- Right aligned nav items -->
+			<b-navbar-nav class="ml-auto">
+
+				<b-nav-form>
+					<input class="mr-sm-2" @blur="searchCount=false" @focus="searchCount=true" autofocus :placeholder="lang[L].search" id="inp" v-model="search">
+				</b-nav-form>
+
+				<b-nav-item-dropdown :text="lang[L].langName" right>
+					<b-dropdown-item @click="L=0">EN</b-dropdown-item>
+					<b-dropdown-item @click="L=1">RU</b-dropdown-item>
+					<b-dropdown-item @click="L=2">RO</b-dropdown-item>
+				</b-nav-item-dropdown>
+
+				<b-nav-item-dropdown right>
+					<template slot="button-content">
+						<em>User</em>
+					</template>
+					<b-dropdown-item v-b-modal.modal1>Admin</b-dropdown-item>
+					<b-dropdown-item @click="admin=false">User</b-dropdown-item>
+				</b-nav-item-dropdown>
+			</b-navbar-nav>
+
+		</b-collapse>
+	</b-navbar>
+<!--===================Show Pass Modal==================-->
+		<b-modal v-if="!admin" id="modal1" title="Log-In" hide-footer>
+			<input style="width: 50%;margin-left: 25%" type="password" :style="admin?'border-color:grey':'border-color:red'" v-model="pass"></input>
+		</b-modal>
+
+
+<div id="tovar">
+	<app :style="tov.onCart?'border:solid':'border-width:0px'"
+				   v-for="tov, index in tovar"
+				   v-if="true"
+				   :tovar="tov"
+					class="tCont">
+	</app>
+
+</div>
+    <div>
+        <!-- Modal Component -->
+        <b-modal size="lg" id="modal-center" centered title="Shopping Cart" :ok-title="lang[L].buy" ok-only ok-disabled="true">
+            <div id="tovar">
+                <app v-for="tov, index in tovar" v-if="tov.onCart" :tovar="tov" cart="true"></app>
+            </div>
+        </b-modal>
+    </div>
+
+
+
+
+</div>
+
+	<script type="text/javascript" src="build/build.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.2/axios.js"></script>
+  </body>
+</html>

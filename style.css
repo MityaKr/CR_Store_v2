@@ -1,0 +1,87 @@
+#body{
+	background-color: #bfbdbd;
+	margin-top: 64px;
+}
+.container{
+	border-width: 5px;
+	border: solid black;
+}
+.card{
+	background-color: darkorange;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+#card-deck{
+	margin-left: 0px;
+}
+#tovar{
+	margin: 10px;
+	display: flex;
+	justify-content:space-around;
+	flex-wrap: wrap;
+	align-content: space-around;
+}
+#filter{
+	display: flex;
+}
+.btn{
+	margin-top: 10px;
+	margin-left: 10px;
+}
+#menu{
+	border-left:black;
+	height: 50px;
+	margin: 0px;
+	background: lightgreen;
+	width: 100%;
+	display: flex;
+}
+.tovContainer{
+	width: 200px;
+	margin: 20px;
+}
+.btnNval{
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+}
+img{
+	width: 80%;
+	margin-left:10%;
+	height: 100px;
+	background: no-repeat;
+	background-size: auto;
+}
+#title{
+	margin-left: 4px;
+	font-size: 20px;
+	font-weight:bold;
+}
+#titleDiv{
+	background-color: #C0C0C0;
+	display: flex;
+	justify-content: space-between;
+}
+#dopDiv{
+	padding: 1px;
+	font-size: 18px;
+	font-weight:bold;
+	background-color: #A9A9A9;
+	display: flex;
+	justify-content: space-between;
+}
+.btn-success, .btn-danger{
+	height: 40px;
+	margin-top: 0px;
+	margin-right: 2px;
+}
+#onSelect{
+	background-color: #81C784;
+	display: flex;
+	justify-content: space-between;
+}
+#cart_btn{
+	margin-right: 20px;
+}
+.mr-sm-2{
+	border-radius: 5px;
+}
