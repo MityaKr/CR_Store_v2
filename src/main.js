@@ -39,6 +39,7 @@ var form = new Vue({
         buyOfCart: function () {
           alert('You buy for total summ: '+ this.costSum +'$');
           this.tovar.forEach(function (tov, i) {
+            tov.value -=tov.onCart;
             tov.onCart = 0;
           });
         },
